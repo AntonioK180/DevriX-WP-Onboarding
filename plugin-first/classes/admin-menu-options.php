@@ -27,22 +27,21 @@ class Admin_Menu_Options {
 	}
 
 	/**
-	 * Adds an option
+	 * Initializes the activate_filters option
 	 */
 	public function add_custom_options() {
 		add_option( 'activate_filters', 0 );
 	}
 
+	/**
+	 * The Onboarding Plugin Custom Menu Page options callback
+	 */
 	public function my_plugin_admin_options() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
-		if ( 1 == get_option( 'activate_filters' ) ) {
-			echo '<input type="checkbox" id="filters-enabled" name="filters-enabled" value="yes" checked>';
-		} else {
-			echo '<input type="checkbox" id="filters-enabled" name="filters-enabled" value="yes">';
-		}
+		echo '<input type="checkbox" id="filters-enabled" name="filters-enabled" value="yes" ' . checked( get_option( 'activate_filters' ), 1, false ) . '>';
 
 		echo '<label for="filters-enabled">Filters Enabled</label>';
 		echo '</div>';

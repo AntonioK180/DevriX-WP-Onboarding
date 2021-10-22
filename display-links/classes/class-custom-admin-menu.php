@@ -1,5 +1,13 @@
 <?php
 
+if ( ! defined( 'HOME_URL' ) ) {
+	define( 'HOME_URL', home_url() );
+}
+
+if ( ! defined( 'PF_ASSETS' ) ) {
+	define( 'PF_ASSETS', WP_PLUGIN_DIR . '/display-links/assets' );
+}
+
 /**
  * Class for the custom admin menu which displays the results of the URL provided
  */
@@ -20,7 +28,7 @@ class Custom_Admin_Menu {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
-		$html_form = file_get_contents( plugins_url( '..\assets\Templates\links_input_form.html', __FILE__ ) );
+		$html_form = file_get_contents( PF_ASSETS . '/Templates/links_input_form.html' );
 
 		echo $html_form;
 	}

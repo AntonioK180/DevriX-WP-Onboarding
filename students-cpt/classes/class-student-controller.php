@@ -45,7 +45,6 @@ class Student_Controller {
 				return new WP_Error( 'rest_forbidden', 'You do not have permissions to view this data.', array( 'status' => 401 ) );
 			}
 
-			// TODO: Run real code here.
 			return 'ok';
 		} else {
 			return new WP_Error( 'invalid-method', 'You must specify a valid username and password.', array( 'status' => 400 /* Bad Request */ ) );
@@ -53,7 +52,7 @@ class Student_Controller {
 	}
 
 	/**
-	 * Get all
+	 * Callback for getting all students
 	 */
 	public function get_all_student_data() {
 		$posts = get_posts(
@@ -67,7 +66,7 @@ class Student_Controller {
 	}
 
 	/**
-	 * Get one
+	 * Callback for getting one student
 	 */
 	public function get_one_student_data( $request ) {
 		$id = (int) $request['id'];
@@ -90,12 +89,18 @@ class Student_Controller {
 		return rest_ensure_response( $post_id );
 	}
 
+	/**
+	 * Callback for adding a new student.
+	 */
 	public function add_new_student( $request ) {
 		$post_id = wp_insert_post( json_decode( $request->get_body() ) );
 
 		return rest_ensure_response( $post_id );
 	}
 
+	/**
+	 * Callback for deleting a student by ID.
+	 */
 	public function delete_student_by_id( $request ) {
 		$post = wp_delete_post( $request['id'] );
 
