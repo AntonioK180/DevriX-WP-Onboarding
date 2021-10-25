@@ -1,11 +1,12 @@
 <?php
 /**
  * Plugin Name: My Onboarding Plugin
+ *
  */
 
 
-require 'classes\first-plugin.php';
-require 'classes\admin-menu-options.php';
+require 'classes\class-first-plugin.php';
+require 'classes\class-admin-menu-options.php';
 
 new First_Plugin();
 

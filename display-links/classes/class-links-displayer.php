@@ -3,8 +3,8 @@
  * Initializes the functional logic of the plugin.
  */
 
-if ( ! defined( 'PF_URL' ) ) {
-	define( 'PF_URL', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'DL_URL' ) ) {
+	define( 'DL_URL', plugin_dir_url( __FILE__ ) );
 }
 
 /**
@@ -26,7 +26,7 @@ class Links_Displayer {
 	 * Adds JavaScript to admin page
 	 */
 	public function load_javascript() {
-		wp_register_script( 'first_separate_js', PF_URL . '../assets/js/first-separate-js.js', array( 'jquery' ), 1, true );
+		wp_register_script( 'first_separate_js', DL_URL . '../assets/js/first-separate-js.js', array( 'jquery' ), 1, true );
 
 		wp_enqueue_script( 'first_separate_js' );
 	}

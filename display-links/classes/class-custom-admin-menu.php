@@ -7,8 +7,8 @@ if ( ! defined( 'HOME_URL' ) ) {
 	define( 'HOME_URL', home_url() );
 }
 
-if ( ! defined( 'PF_ASSETS' ) ) {
-	define( 'PF_ASSETS', WP_PLUGIN_DIR . '/display-links/assets' );
+if ( ! defined( 'DL_ASSETS' ) ) {
+	define( 'DL_ASSETS', WP_PLUGIN_DIR . '/display-links/assets' );
 }
 
 /**
@@ -31,7 +31,7 @@ class Custom_Admin_Menu {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
-		$html_form = file_get_contents( PF_ASSETS . '/templates/links_input_form.html' );
+		$html_form = file_get_contents( DL_ASSETS . '/templates/links_input_form.html' );
 
 		echo $html_form;
 	}
