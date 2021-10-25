@@ -1,4 +1,7 @@
 <?php
+/**
+ * Here is described the Admin Menu which is appended to the standard WordPress amdin sidebar.
+ */
 
 if ( ! defined( 'HOME_URL' ) ) {
 	define( 'HOME_URL', home_url() );
@@ -28,7 +31,7 @@ class Custom_Admin_Menu {
 			wp_die( esc_html( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
-		$html_form = file_get_contents( PF_ASSETS . '/Templates/links_input_form.html' );
+		$html_form = file_get_contents( PF_ASSETS . '/templates/links_input_form.html' );
 
 		echo $html_form;
 	}

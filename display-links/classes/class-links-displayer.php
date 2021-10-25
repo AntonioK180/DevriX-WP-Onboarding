@@ -1,4 +1,7 @@
 <?php
+/**
+ * Initializes the functional logic of the plugin.
+ */
 
 if ( ! defined( 'PF_URL' ) ) {
 	define( 'PF_URL', plugin_dir_url( __FILE__ ) );
@@ -32,10 +35,12 @@ class Links_Displayer {
 	 * Retrieves the HTML body from the provided URL and caches it
 	 */
 	public function display_input_link() {
-		$html_body = wp_remote_retrieve_body( wp_remote_get( sanitize_text_field( $_POST['link_value'] ) ) );
+		if ( isset( $_POST['link_value'] ) ) {
+			$html_body = wp_remote_retrieve_body( wp_remote_get( sanitize_text_field( $_POST['link_value'] ) ) );
+		}
 
-		if ( null !== ( wp_unslash( $_POST['cache_duration'] ) ) ) {
-			$transient_duration = $_POST['cache_duration'];
+		if ( isset( $_POST['cache_duration'] ) ) {
+			$transient_duration = sanitize_key( $_POST['cache_duration'] );
 		}
 
 		set_transient( 'cached_html', $html_body, $transient_duration );
@@ -46,7 +51,7 @@ class Links_Displayer {
 	}
 
 	/**
-	 * Displays HTML if one is cached, otherwise displays nothing
+	 * If there is cached HTML is displays it, otherwise displays nothing
 	 */
 	public function display_cached_html() {
 		$cached_html_body = get_transient( 'cached_html' );
