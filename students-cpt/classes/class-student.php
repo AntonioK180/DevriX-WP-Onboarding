@@ -1,5 +1,15 @@
 <?php
+/**
+ * The Student CPT is described here.
+ */
 
+if ( ! defined( 'S_CPT_URL' ) ) {
+	define( 'S_CPT_URL', plugin_dir_url( __FILE__ ) );
+}
+
+/**
+ * Describes the Student Custom Post Type.
+ */
 class Student_CPT {
 
 	/**
@@ -62,14 +72,10 @@ class Student_CPT {
 	 */
 	public function city_meta_box_html( $post ) {
 		$value = get_post_meta( $post->ID, 'student_city', true );
+
 		?>
-	  <label for="city"> City: </label>
-	  <input type="text" name="city" value="
-		<?php
-		if ( isset( $value ) ) {
-			echo $value; }
-		?>
-		">
+			<label for="city"> City: </label>
+			<input type="text" name="city" value=" <?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 		<?php
 	}
 
@@ -81,13 +87,8 @@ class Student_CPT {
 	public function address_meta_box_html( $post ) {
 		$value = get_post_meta( $post->ID, 'student_address', true );
 		?>
-	  <label for="address"> Address: </label>
-	  <input type="text" name="address" style="width:60%;" value="
-		<?php
-		if ( isset( $value ) ) {
-			echo esc_attr( $value ); }
-		?>
-		">
+			<label for="address"> Address: </label>
+			<input type="text" name="address" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 		<?php
 	}
 
@@ -99,13 +100,8 @@ class Student_CPT {
 	public function birthdate_meta_box_html( $post ) {
 		$value = get_post_meta( $post->ID, 'student_birthdate', true );
 		?>
-	  <label for="birthdate"> Birth Date: </label>
-	  <input type="date" name="birthdate" style="width:60%;" value="
-		<?php
-		if ( isset( $value ) ) {
-			echo esc_attr( $value ); }
-		?>
-		">
+			<label for="birthdate"> Birth Date: </label>
+			<input type="date" name="birthdate" style="width:60%;" value="<?php echo ( esc_html( isset( $value ) ? $value : '' ) ); ?>">
 		<?php
 	}
 
@@ -117,15 +113,15 @@ class Student_CPT {
 	public function student_grade_meta_box_html( $post ) {
 		$value = get_post_meta( $post->ID, 'student_grade', true );
 		?>
-	  <label for="grade">Grade: </label>
-	  <select name="grade">
-		  <option value="">Select something...</option>
-		  <option value="8"  <?php selected( $value, '8' ); ?>>8</option>
-		  <option value="9"  <?php selected( $value, '9' ); ?>>9</option>
-		  <option value="10" <?php selected( $value, '10' ); ?>>10</option>
-		  <option value="11" <?php selected( $value, '11' ); ?>>11</option>
-		  <option value="12" <?php selected( $value, '12' ); ?>>12</option>
-	  </select>
+			<label for="grade">Grade: </label>
+			<select name="grade">
+				<option value="">Select something...</option>
+				<option value="8"  <?php selected( $value, '8' ); ?>>  8</option>
+				<option value="9"  <?php selected( $value, '9' ); ?>>  9</option>
+				<option value="10" <?php selected( $value, '10' ); ?>>10</option>
+				<option value="11" <?php selected( $value, '11' ); ?>>11</option>
+				<option value="12" <?php selected( $value, '12' ); ?>>12</option>
+			</select>
 		<?php
 	}
 
@@ -231,13 +227,15 @@ class Student_CPT {
 	 * Loads scripts
 	 */
 	public function student_cpt_load_javascript() {
-		wp_register_script( 'student_ajax_calls', plugins_url( '..\assets\JS\student_ajax_calls.js', __FILE__ ), array( 'jquery' ), false, true );
+		wp_register_script( 'student_ajax_calls', S_CPT_URL . '../assets/js/student_ajax_calls.js', array( 'jquery' ), 1.0, true );
 
 		wp_enqueue_script( 'student_ajax_calls' );
 	}
 
 	/**
 	 * Student CPT shortcode.
+	 *
+	 * @param array $atts practically accepts only one attribute and it is a Student's ID.
 	 */
 	public function display_student_shortcode( $atts ) {
 		$student_display = '';
@@ -263,12 +261,6 @@ class Student_CPT {
 				$student_display = '<div style="border: 2px solid black;" class="' . get_post_meta( get_the_ID(), 'student_active', true ) . '">';
 
 				$student_display = $student_display . '<h2>' . get_the_title() . '</h2>';
-				// . the_post_thumbnail(
-				// $size        = array(
-				// 150,
-				// 150,
-				// )
-				// );
 
 				$student_display = $student_display . '<h3> Grade: ' . get_post_meta( get_the_ID(), $key = 'student_grade', true ) . '</h3>';
 				$student_display = $student_display . '<h3> Status: ' . get_post_meta( get_the_ID(), $key = 'student_active', true ) . '</h3>';
@@ -313,7 +305,7 @@ class Student_CPT {
 	 */
 	public function add_student_archive_page() {
 		if ( is_page( 'students-archives' ) ) {
-			$page_template = dirname( __FILE__ ) . '\..\assets\Templates\archive-student.php';
+			$page_template = S_CPT_DIR . '../assets/Templates/archive-student.php';
 			return $page_template;
 		}
 	}

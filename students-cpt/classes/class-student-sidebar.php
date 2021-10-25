@@ -1,4 +1,7 @@
 <?php
+/**
+ * Student Sidebar defined here.
+ */
 
 /**
  * The students sidebar class - initializes the sidebar

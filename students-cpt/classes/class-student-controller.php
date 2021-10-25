@@ -1,7 +1,13 @@
 <?php
+/**
+ * The Student Controller class handles all custom REST API requests.
+ */
 
 /**
  * A Controller to manipulate the student CPT entries
+ *
+ * @var string $namespace is alywas /onboarding-plugin/v1.
+ * @var string $resource_name is always students.
  */
 class Student_Controller {
 
